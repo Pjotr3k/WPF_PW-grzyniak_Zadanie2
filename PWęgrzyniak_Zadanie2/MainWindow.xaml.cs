@@ -24,8 +24,8 @@ namespace PWęgrzyniak_Zadanie2
         {
             InitializeComponent();
         }
-
-        private void DataGridRow_MouseUp(object sender, MouseButtonEventArgs e)
+                
+        private void DataGridRow_Selected(object sender, RoutedEventArgs e)
         {
 
         }

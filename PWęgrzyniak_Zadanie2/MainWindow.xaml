@@ -19,9 +19,15 @@
 
         <StackPanel Grid.Column="0">            
             <Label Content="Lista pracowników:" />
+
+            <DataGrid IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedPracownik}"  ItemsSource="{Binding PracownikVMs}">
+                <!--<DataGrid.ItemContainerStyle>                    
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="Selected"  />
+                    </Style>
+                </DataGrid.ItemContainerStyle>-->
                
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding PracownikVMs}">
-               
+                
                 <DataGrid.Columns>
                     <DataGridTextColumn  Binding="{Binding Id}" Width="20" Header="Id" />
                     <DataGridTextColumn Binding="{Binding Imie}" Width="*" Header="Imię" />
@@ -54,7 +60,7 @@
                 <Label Content="{Binding SelectedPracownik.Imie}" />
             </DockPanel>
             <Label  HorizontalAlignment="Center" Content="Lista Zadań: "/>
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding SelectedPracownik.NiezakonczoneZadanies}">
+            <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedPracownik.NiezakonczoneZadanies}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Width="20" Header="Id" />
                     <DataGridTextColumn Binding="{Binding Kategoria}" Width="1*" Header="Kategoria zadania" />

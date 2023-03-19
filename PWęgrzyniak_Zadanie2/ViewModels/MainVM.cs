@@ -76,7 +76,7 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
                     Id = 1,
                     Kategoria = "Historia Polski",
                     Opis = "Zjednoczenie Polski",
-                    CzyZakończone = false,
+                    CzyZakonczone = false,
                     PracownikId = a.Id,
                     Pracownik = a
 
@@ -87,7 +87,7 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
                     Id = 2,
                     Kategoria = "Żeglarsto",
                     Opis = "Ile kilometrów to mila morska",
-                    CzyZakończone = false,
+                    CzyZakonczone = false,
                     PracownikId = a.Id,
                     Pracownik = a
 
@@ -99,9 +99,9 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
                 new Zadanie()
                 {
                     Id = 3,
-                    Kategoria = "Historia Polski",
-                    Opis = "Zjednoczenie Polski",
-                    CzyZakończone = false,
+                    Kategoria = "To akurat jest ważne",
+                    Opis = "I to bardzo",
+                    CzyZakonczone = false,
                     PracownikId = b.Id,
                     Pracownik = b
 
@@ -112,7 +112,7 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
                     Id = 4,
                     Kategoria = "Nie ważne",
                     Opis = "nic",
-                    CzyZakończone = true,
+                    CzyZakonczone = true,
                     PracownikId = b.Id,
                     Pracownik = b
 
@@ -124,9 +124,9 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
                 new Zadanie()
                 {
                     Id = 5,
-                    Kategoria = "Historia Polski",
-                    Opis = "Zjednoczenie Polski",
-                    CzyZakończone = false,
+                    Kategoria = "Salvete",
+                    Opis = "Ego Petrus sum",
+                    CzyZakonczone = false,
                     PracownikId = c.Id,
                     Pracownik = c
 

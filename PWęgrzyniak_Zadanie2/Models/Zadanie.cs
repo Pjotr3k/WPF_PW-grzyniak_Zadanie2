@@ -14,7 +14,7 @@ namespace PWęgrzyniak_Zadanie2.Models
         public int Id { get; set; }
         public string Kategoria { get; set; }
         public string Opis { get; set; }
-        public bool CzyZakończone { get; set; }
+        public bool CzyZakonczone { get; set; }
 
         [ForeignKey("Pracownik")]
         public int PracownikId { get; set; }

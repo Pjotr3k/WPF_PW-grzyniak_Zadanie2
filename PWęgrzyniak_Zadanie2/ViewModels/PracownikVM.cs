@@ -19,7 +19,7 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
             //this.pracownik = pracownik;
             this.Id = pracownik.Id;
             this.Imie = pracownik.Imie;
-            List<Zadanie> zadanieDoKonwert = pracownik.Zadanies.Where(z => z.CzyZakończone == false).ToList();
+            List<Zadanie> zadanieDoKonwert = pracownik.Zadanies.Where(z => z.CzyZakonczone == false).ToList();
             NiezakonczoneZadanies = new List<ZadanieVM>();
             
             foreach(var zad in zadanieDoKonwert)
