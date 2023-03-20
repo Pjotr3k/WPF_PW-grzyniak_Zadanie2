@@ -13,6 +13,7 @@ namespace PWęgrzyniak_Zadanie2.Data
     internal class AppDbContext : DbContext
     {
         private const string CONNECTION_STRING = @"Data Source=WYMIATACZ\SQLEXPRESS;Initial Catalog=Zadanie2DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        //private const string CONNECTION_STRING = @"Data Source=WYMIATACZ\SQLEXPRESS;Initial Catalog=Zad2Test;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
         public DbSet<Pracownik> Pracowniks { get; set; }
         public DbSet<Zadanie> Zadanies { get; set; }
 
@@ -27,14 +28,14 @@ namespace PWęgrzyniak_Zadanie2.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string jsonDir = Directory.GetCurrentDirectory();
-            int ileDoMainFolder = 3;
+            //string jsonDir = Directory.GetCurrentDirectory();
+            //int ileDoMainFolder = 3;
 
 
-            for(int i = 0; i < ileDoMainFolder; i++)
-            {
-                jsonDir = Directory.GetParent(jsonDir).FullName;
-            }
+            //for(int i = 0; i < ileDoMainFolder; i++)
+            //{
+            //    jsonDir = Directory.GetParent(jsonDir).FullName;
+            //}
 
             /*var configuration = new ConfigurationBuilder()                
                 .SetBasePath(jsonDir)

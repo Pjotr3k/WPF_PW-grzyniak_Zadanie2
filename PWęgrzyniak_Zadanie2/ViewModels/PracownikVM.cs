@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace PWęgrzyniak_Zadanie2.ViewModels
 {
     internal class PracownikVM
-    {
+    {        
+
         public int Id { get; set; }
         public string Imie { get; set; }
         public List<ZadanieVM> NiezakonczoneZadanies { get; set; }
@@ -19,7 +20,11 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
             //this.pracownik = pracownik;
             this.Id = pracownik.Id;
             this.Imie = pracownik.Imie;
-            List<Zadanie> zadanieDoKonwert = pracownik.Zadanies.Where(z => z.CzyZakonczone == false).ToList();
+
+            List<Zadanie> zadanieDoKonwert = new List<Zadanie>();
+            if (pracownik.Zadanies.Any(z => z.CzyZakonczone == false))
+            zadanieDoKonwert = pracownik.Zadanies.Where(z => z.CzyZakonczone == false).ToList();
+            
             NiezakonczoneZadanies = new List<ZadanieVM>();
             
             foreach(var zad in zadanieDoKonwert)

@@ -1,20 +1,103 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
+using System.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
+using PWęgrzyniak_Zadanie2.Data;
 using PWęgrzyniak_Zadanie2.Models;
+using System.Collections.ObjectModel;
 
 namespace PWęgrzyniak_Zadanie2.ViewModels
 {
     internal class MainVM  : BaseVM
     {
-        private readonly List<Pracownik> _pracowniks;
-        private PracownikVM  _selectedPracownik;
+        private readonly AppDbContext _context;
+        private List<Pracownik> _pracowniks;
+        private PracownikVM _selectedPracownik;
+        private string _newPracownikImie = "";
+
+        //Constructor
+        public MainVM()
+        {
+            _context = new AppDbContext();
+            
+            DodajPracownikVisibility = _dodajPracownikVisibility;            
+
+            RefreshPracowniks();
+
+            SelectedPracownik = PracownikVMs[0];
+        }
+
+        //Methods
+        private void RefreshPracowniks()
+        {
+            _pracowniks = _context.Pracowniks
+                .Include(p => p.Zadanies).ToList();
+            PracownikVMs.Clear();
+
+            foreach (var p in _pracowniks)
+            {
+                PracownikVM pvm = new PracownikVM(p);
+                PracownikVMs.Add(pvm);
+            }
+            OnPropertyChanged(nameof(PracownikVMs));
+        }
+
+        private void ExecuteSelectPracownik(object obj)
+        {
+            throw new NotImplementedException();
+        }
+        private void ExecuteToggleDodajPracownikaVisibility(object obj)
+        {
+            if (_dodajPracownikVisibility == Visibility.Hidden) DodajPracownikVisibility = Visibility.Visible;
+            else DodajPracownikVisibility = Visibility.Hidden;
+        }
+
+        private void ExecuteDodajPracownik(object obj)
+        {
+            Pracownik.AddPracownik(_newPracownikImie);
+            NewPracownikImie = "";
+            RefreshPracowniks();
+        }
+
+        private bool CanExecuteDodajPracownik(object obj)
+        {
+            return _newPracownikImie.Length > 1;
+        }
+
+        private void ExecuteUsunPracownik(object obj)
+        {
+            int idToRemove = (int)obj;
+            Pracownik pnik = _pracowniks.Where(x => x.Id == idToRemove).FirstOrDefault();
+
+            _context.Pracowniks.Remove(pnik);
+            _context.SaveChanges();
+
+            RefreshPracowniks();
+            
+        }
+
+        private bool CanExecuteUsunPracownik(object obj)
+        {            
+            if (obj is int) 
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+        Visibility _dodajPracownikVisibility = Visibility.Hidden;
         
-        public List<PracownikVM> PracownikVMs { get; set; } = new List<PracownikVM>();
+        
+        public ObservableCollection<PracownikVM> PracownikVMs { get; set; } = new ObservableCollection<PracownikVM>();
         public PracownikVM SelectedPracownik { get 
             {
                 return _selectedPracownik;
@@ -25,115 +108,64 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
                 OnPropertyChanged(nameof(SelectedPracownik));
             }
         }
+        public Visibility DodajPracownikVisibility { 
+            get
+            {
+                return _dodajPracownikVisibility;
+            }
+            set
+            {
+                _dodajPracownikVisibility = value;
+                OnPropertyChanged(nameof(DodajPracownikVisibility));
+            }
+        }
+
+        public string NewPracownikImie
+        {
+            get
+            {
+                return _newPracownikImie;
+            }
+            set
+            {
+                _newPracownikImie = value;
+                OnPropertyChanged(nameof(NewPracownikImie));
+            }
+        }
+
 
         //Command
+        //private ICommand _toggleDodajPracownikaVisibilityCommand = null;
         public ICommand SelectPracownikCommand { get; }
-
-        //Constructor
-        public MainVM()
-        {
-            _pracowniks = MainVM.PopulateTest();
-            SelectPracownikCommand = new CommandVM(ExecuteSelectPracownik);
-
-            foreach (var p in _pracowniks)
+        public ICommand ToggleDodajPracownikaVisibilityCommand { get
             {
-                PracownikVM pvm = new PracownikVM(p);
-                PracownikVMs.Add(pvm);
+                return new CommandVM(ExecuteToggleDodajPracownikaVisibility);
             }
-
-            SelectedPracownik = PracownikVMs[0];
         }
-
-        private void ExecuteSelectPracownik(object obj)
+        public ICommand DodajPracownikCommand
         {
-            throw new NotImplementedException();
+            get
+            {
+                return new CommandVM(ExecuteDodajPracownik, CanExecuteDodajPracownik);
+            }
         }
 
-        static List<Pracownik> PopulateTest()
+        public ICommand UsunPracownikCommand
         {
-            Pracownik a = new Pracownik()
+            get
             {
-                Id = 1,
-                Imie = "Andszej"
-            };
-
-            Pracownik b = new Pracownik()
-            {
-                Id = 2,
-                Imie = "Pioter"
-            };
-
-            Pracownik c = new Pracownik()
-            {
-                Id = 3,
-                Imie = "Żygmunt"
-            };
-
-            a.Zadanies = new List<Zadanie>()
-            {
-                new Zadanie()
-                {
-                    Id = 1,
-                    Kategoria = "Historia Polski",
-                    Opis = "Zjednoczenie Polski",
-                    CzyZakonczone = false,
-                    PracownikId = a.Id,
-                    Pracownik = a
-
-                },
-
-                new Zadanie()
-                {
-                    Id = 2,
-                    Kategoria = "Żeglarsto",
-                    Opis = "Ile kilometrów to mila morska",
-                    CzyZakonczone = false,
-                    PracownikId = a.Id,
-                    Pracownik = a
-
-                }
-            };
-
-            b.Zadanies = new List<Zadanie>()
-            {
-                new Zadanie()
-                {
-                    Id = 3,
-                    Kategoria = "To akurat jest ważne",
-                    Opis = "I to bardzo",
-                    CzyZakonczone = false,
-                    PracownikId = b.Id,
-                    Pracownik = b
-
-                },
-
-                new Zadanie()
-                {
-                    Id = 4,
-                    Kategoria = "Nie ważne",
-                    Opis = "nic",
-                    CzyZakonczone = true,
-                    PracownikId = b.Id,
-                    Pracownik = b
-
-                }
-            };
-
-            c.Zadanies = new List<Zadanie>()
-            {
-                new Zadanie()
-                {
-                    Id = 5,
-                    Kategoria = "Salvete",
-                    Opis = "Ego Petrus sum",
-                    CzyZakonczone = false,
-                    PracownikId = c.Id,
-                    Pracownik = c
-
-                }
-            };
-
-            return new List<Pracownik>() { a, b, c};
+                return new CommandVM(ExecuteUsunPracownik);
+            }
         }
-    }
+
+
+        
+        
+
+
+
+
+
+
+    }       
 }

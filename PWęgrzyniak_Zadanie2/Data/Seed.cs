@@ -19,105 +19,96 @@ namespace PWęgrzyniak_Zadanie2.Data
 
         public void ExecuteSeed()
         {
-            if(_appDbContext.Pracowniks.Count() < 1) 
+            if(!_appDbContext.Pracowniks.Any()) 
             {
 
 
                 var pracowniks = new List<Pracownik>()
                 {
                     new Pracownik()
-                    {
-                        //Id = 1,
+                    {                        
                         Imie = "Jan"
                     },
 
                     new Pracownik()
-                    {
-                        //Id = 2,
+                    {                        
                         Imie = "Paweł"
                     },
 
                     new Pracownik()
                     {
-                        //Id = 3,
                         Imie = "Franciszek"
                     },
 
                      new Pracownik()
                     {
-                        //Id = 4,
                         Imie = "Marek"
                     }
                 };
 
                 _appDbContext.Pracowniks.AddRange(pracowniks);
+                _appDbContext.SaveChanges();
             }
 
             if (!_appDbContext.Zadanies.Any())
             {
+                List<Pracownik> ps = _appDbContext.Pracowniks.ToList();
                 var zadanies = new List<Zadanie>()
                 {
                     new Zadanie()
                     {
-                        //Id = 1,
                         Kategoria = "Test",
                         Opis = "Przeprowadzić testy jednostkowe",
                         CzyZakonczone = true,
-                        PracownikId = 1                        
+                        PracownikId = ps[0].Id                     
                     },
 
                     new Zadanie()
                     {
-                        //Id = 2,
-                        Kategoria = "Test",
-                        Opis = "Przeprowadzić testy jednostkowe",
-                        CzyZakonczone = true,
-                        PracownikId = 4
+                        Kategoria = "Dane",
+                        Opis = "Przyogotwać bazę pod bloga",
+                        CzyZakonczone = false,
+                        PracownikId = ps[1].Id
                     },
 
                     new Zadanie()
                     {
-                        //Id = 3,
                         Kategoria = "Test",
                         Opis = "Przeprowadzić testy jednostkowe",
                         CzyZakonczone = true,
-                        PracownikId = 2
+                        PracownikId = ps[3].Id
                     },
 
                     new Zadanie()
                     {
-                        //Id = 4,
                         Kategoria = "Test",
-                        Opis = "Przeprowadzić testy jednostkowe",
-                        CzyZakonczone = true,
-                        PracownikId = 3
+                        Opis = "Przygotować widok sklepu",
+                        CzyZakonczone = false,
+                        PracownikId = ps[1].Id
                     },
 
                     new Zadanie()
                     {
-                        //Id = 5,
                         Kategoria = "Test",
                         Opis = "Przeprowadzić testy jednostkowe",
                         CzyZakonczone = true,
-                        PracownikId = 3
+                        PracownikId = ps[1].Id
                     },
 
                     new Zadanie()
                     {
-                        //Id = 6,
                         Kategoria = "Test",
                         Opis = "Przeprowadzić testy jednostkowe",
-                        CzyZakonczone = true,
-                        PracownikId = 1
+                        CzyZakonczone = false,
+                        PracownikId = ps[2].Id
                     },
 
                     new Zadanie()
                     {
-                        //Id = 7,
-                        Kategoria = "Test",
-                        Opis = "Przeprowadzić testy jednostkowe",
-                        CzyZakonczone = true,
-                        PracownikId = 1
+                        Kategoria = "Grafika",
+                        Opis = "Przygotować szatę strony",
+                        CzyZakonczone = false,
+                        PracownikId = ps[3].Id
                     }
                 };
 

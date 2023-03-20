@@ -14,6 +14,7 @@ namespace PWęgrzyniak_Zadanie2
     /// </summary>
     public partial class App : Application
     {
+
         [STAThread]
         public static void Main()
         {
@@ -30,5 +31,6 @@ namespace PWęgrzyniak_Zadanie2
             application.InitializeComponent();
             application.Run();
         }
+
     }
 }
