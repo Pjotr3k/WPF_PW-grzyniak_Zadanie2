@@ -21,11 +21,8 @@ namespace PWęgrzyniak_Zadanie2
             var application = new App();
 
             AppDbContext context = new AppDbContext();
-            //context.Database.EnsureCreated();
-
+            
             Seed seed = new Seed(context);
-
-
             seed.ExecuteSeed();
 
             application.InitializeComponent();

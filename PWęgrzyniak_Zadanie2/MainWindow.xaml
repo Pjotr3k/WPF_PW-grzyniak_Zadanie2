@@ -37,11 +37,11 @@
                     <DataGridTextColumn Binding="{Binding IleNiezakonczonych}" Width="*" Header="Liczba niezakończonych zadań" />
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.Header>
-                            <Button Command="{Binding ToggleDodajPracownikaVisibilityCommand}">+</Button>
+                            <Button Width="30" Command="{Binding ToggleDodajPracownikaVisibilityCommand}">+</Button>
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>                            
                             <DataTemplate>
-                                <Button Command="">X</Button>
+                                <Button CommandParameter="{Binding Id}" Command="{Binding VM:UsunPracownikCommand}">X</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

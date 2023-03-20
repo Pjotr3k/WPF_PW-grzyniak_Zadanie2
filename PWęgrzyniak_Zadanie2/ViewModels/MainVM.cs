@@ -2,10 +2,7 @@
 using System.Windows;
 using System.Collections.Generic;
 using System.Data;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 using PWęgrzyniak_Zadanie2.Data;
@@ -16,18 +13,12 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
 {
     internal class MainVM  : BaseVM
     {
-        private readonly AppDbContext _context;
-        private List<Pracownik> _pracowniks;
-        private PracownikVM _selectedPracownik;
-        private string _newPracownikImie = "";
-
         //Constructor
         public MainVM()
         {
             _context = new AppDbContext();
             
-            DodajPracownikVisibility = _dodajPracownikVisibility;            
-
+            DodajPracownikVisibility = _dodajPracownikVisibility;
             RefreshPracowniks();
 
             SelectedPracownik = PracownikVMs[0];
@@ -84,16 +75,18 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
 
         private bool CanExecuteUsunPracownik(object obj)
         {            
-            if (obj is int) 
-            {
-                return true;
-            }
-
+            if (obj is int) return true;
+            
             return false;
         }
 
+        //Fields
+        private readonly AppDbContext _context;
+        private List<Pracownik> _pracowniks;
+        private PracownikVM _selectedPracownik;
+        private string _newPracownikImie = "";
 
-
+        //Properties
         Visibility _dodajPracownikVisibility = Visibility.Hidden;
         
         
@@ -134,9 +127,7 @@ namespace PWęgrzyniak_Zadanie2.ViewModels
         }
 
 
-        //Command
-        //private ICommand _toggleDodajPracownikaVisibilityCommand = null;
-        public ICommand SelectPracownikCommand { get; }
+        //Commands
         public ICommand ToggleDodajPracownikaVisibilityCommand { get
             {
                 return new CommandVM(ExecuteToggleDodajPracownikaVisibility);

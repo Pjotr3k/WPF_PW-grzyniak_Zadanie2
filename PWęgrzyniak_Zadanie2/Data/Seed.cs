@@ -1,10 +1,6 @@
-﻿using Microsoft.Identity.Client;
-using PWęgrzyniak_Zadanie2.Models;
-using System;
+﻿using PWęgrzyniak_Zadanie2.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PWęgrzyniak_Zadanie2.Data
 {
@@ -117,7 +113,5 @@ namespace PWęgrzyniak_Zadanie2.Data
 
             _appDbContext.SaveChanges();
         }
-
-        //public static void SeedData(IApplicationBuilder applicationBuilder);
     }
 }

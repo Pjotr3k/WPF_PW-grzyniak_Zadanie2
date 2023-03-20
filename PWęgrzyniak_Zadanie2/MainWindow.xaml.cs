@@ -23,20 +23,7 @@ namespace PWęgrzyniak_Zadanie2
     {
         public MainWindow()
         {
-            //AppDbContext context = new AppDbContext();
-            //context.Database.EnsureCreated();
-
-            // Seed seed = new Seed(context);
-
-
-            //seed.ExecuteSeed();
-
             InitializeComponent();
-        }
-                
-        private void DataGridRow_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }  
     }
 }

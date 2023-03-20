@@ -1,9 +1,6 @@
 ﻿using PWęgrzyniak_Zadanie2.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PWęgrzyniak_Zadanie2.ViewModels
 {
