@@ -17,7 +17,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel CanVerticallyScroll="True" Grid.Column="0">            
+        <StackPanel Margin="10" CanVerticallyScroll="True" Grid.Column="0">            
             
 
             <DockPanel Visibility="{Binding DodajPracownikVisibility}"  LastChildFill="True">
@@ -27,9 +27,8 @@
             </DockPanel>
 
             <Label Content="Lista pracowników:" />
-            <Button Command="{Binding ToggleDodajPracownikaVisibilityCommand}">Dodaj pracownika</Button>
-
-            <DataGrid VerticalScrollBarVisibility="Auto" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedPracownik, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding PracownikVMs}">
+            
+            <DataGrid IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedPracownik, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding PracownikVMs}">
                   
                 <DataGrid.Columns>
                     <DataGridTextColumn  Binding="{Binding Id}" Width="20" Header="Id" />
@@ -37,11 +36,11 @@
                     <DataGridTextColumn Binding="{Binding IleNiezakonczonych}" Width="*" Header="Liczba niezakończonych zadań" />
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.Header>
-                            <Button Width="30" Command="{Binding ToggleDodajPracownikaVisibilityCommand}">+</Button>
+                            <Button Width="30" FontSize="15" FontWeight="UltraBold" Foreground="Green" Background="Transparent" BorderBrush="Transparent" Command="{Binding DataContext.ToggleDodajPracownikaVisibilityCommand, RelativeSource= {RelativeSource FindAncestor, AncestorType=DataGrid}}">+</Button>
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>                            
                             <DataTemplate>
-                                <Button CommandParameter="{Binding Id}" Command="{Binding VM:UsunPracownikCommand}">X</Button>
+                                <Button FontSize="15" FontWeight="UltraBold" Foreground="Red" Background="Transparent" BorderBrush="Transparent" CommandParameter="{Binding Id}" Command="{Binding Path=DataContext.UsunPracownikCommand, RelativeSource= {RelativeSource FindAncestor, AncestorType=DataGrid}}">x</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -49,7 +48,7 @@
             </DataGrid>
         </StackPanel>
         
-        <StackPanel Grid.Column="1">
+        <StackPanel Margin="10" Grid.Column="1">
             <StackPanel.Resources>
                 <VM:MainVM x:Key="Details"/>
             </StackPanel.Resources>
@@ -62,12 +61,11 @@
                 <Label Content="Dane:" />
                 <Label Content="{Binding SelectedPracownik.Imie}" />
             </DockPanel>
-            <Button Content="Usuń pracownika" Command="{Binding UsunPracownikCommand}" CommandParameter="{Binding SelectedPracownik.Id}" />
             <Label  HorizontalAlignment="Center" Content="Lista Zadań: "/>
             <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedPracownik.NiezakonczoneZadanies}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Width="20" Header="Id" />
-                    <DataGridTextColumn Binding="{Binding Kategoria}" Width="1*" Header="Kategoria zadania" />
+                    <DataGridTextColumn Binding="{Binding Kategoria}" Width="*" Header="Kategoria zadania" />
                     <DataGridTextColumn Binding="{Binding Opis}" Width="3*" Header="Opis zadania" />
                 </DataGrid.Columns>
             </DataGrid>
