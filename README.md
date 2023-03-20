@@ -5,4 +5,5 @@ This task is a WPF application. Its main functionality consist of presenting lis
 **Installation:**
 - create a database
 - run query included in zad2.sql file
+- set the connection string in Data/AppDbContext.cs to connection string to your database
 - compile and run the application, database should be automatically seeded
